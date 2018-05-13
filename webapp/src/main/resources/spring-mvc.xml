@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd  
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">  
+    <!--根据Spring的注解查找Controller -->
+    <mvc:annotation-driven />
+    
+    <!--对web包中的所有类进行扫描   -->
+    <context:component-scan base-package="com.jk" />
+    
+    
+   	<!--  静态文件访问,主要是让DispatcherServlet不拦截以下静态资源 -->
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/image/" mapping="/image/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/css2/" mapping="/css2/**"/>
+	<mvc:resources location="/zhuce_files/" mapping="/zhuce_files/**"/>
+	<mvc:resources location="/zhuce2_files/" mapping="/zhuce2_files/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/uploadify/" mapping="/uploadify/**"/>
+	<mvc:resources location="/upload/" mapping="/upload/**"/>
+	<mvc:resources location="/kindeditor/" mapping="/kindeditor/**"/>
+	<mvc:resources location="/bootstrap-3.3.7-dist/" mapping="/bootstrap-3.3.7-dist/**"/>	
+    <!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
+  	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+  	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+  
+    <!-- 这个类用于Spring MVC视图解析 
+	    InternalResourceViewResolver：用于支持Servlet、JSP视图解析；
+	    prefix和suffix：查找视图页面的前缀和后缀（前缀[逻辑视图名]后缀），
+	          比如传进来的逻辑视图名为WEB-INF/jsp/hello，则该该jsp视图页面应该存放在“WEB-INF/jsp/hello.jsp”；
+	    /user/show.jsp
+    -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <!-- 上传文件配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> <!--允许上传文件大小 -->
+		<property name="maxUploadSize" value="104857600000" />
+		<!--缓存大小 -->
+		<property name="maxInMemorySize" value="4096" />
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+   
+    <!-- 处理json乱码 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg>
+					<bean class="java.nio.charset.Charset" factory-method="forName">
+						<constructor-arg value="UTF-8"/>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+ 	<!-- Interceptors拦截器--> 
+ 	<!--  <mvc:interceptors> 
+          <mvc:interceptor> 
+ 	        <mvc:mapping path="/**" /> 
+ 	        <mvc:exclude-mapping path="/login.jsp"/> 
+ 	        <mvc:exclude-mapping path="/js/**"/>
+ 	        <mvc:exclude-mapping path="/css/**"/> 
+ 	        <mvc:exclude-mapping path="/jsp/**"/> 
+ 	        <mvc:exclude-mapping path="/areaLogic/**"/> 
+	        <mvc:exclude-mapping path="/images/**"/> 
+ 	        <mvc:exclude-mapping path="/imgss/**"/> 
+ 	        <mvc:exclude-mapping path="/bootstrap-3.3.7-dist/**"/>
+ 	        <mvc:exclude-mapping path="/attached/image/**"/> 
+ 	    	<bean class="com.jk.interceptors.InterFilter"/> 
+ 	    </mvc:interceptor>	
+   </mvc:interceptors>  -->
+   
+</beans>

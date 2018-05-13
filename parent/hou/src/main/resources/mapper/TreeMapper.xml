@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.TreeDao" >
+
+    <select id="getTree" resultType="com.jk.pojo.Power">
+   		SELECT t5.* FROM u_user t1,user_role t2,r_role t3,role_power t4,p_power t5
+        WHERE t1.uid=t2.uid AND t2.rid=t3.rid AND t3.rid=t4.rid AND t4.pid=t5.id AND t1.uid=#{id}
+   </select>
+
+</mapper>
