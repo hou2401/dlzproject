@@ -54,14 +54,14 @@
 <body>
 <div id="cha" style="margin-top: 8px">
     <form id="where" class="form-inline">
-        <label for="name">日志名称：</label><input name="mongoLog.methodname" id="name"class="form-control" style="width: auto;">
+        <label for="name">日志名称：</label><input name="methodname" id="name"class="form-control" style="width: auto;">
         <div class="form-group">
-            <label for="startTime">时间查询：</label> <input type="text"  class="form-control" id="startTime" name="mongoLog.startTime" style="width: auto;">
+            <label for="startTime">时间查询：</label> <input type="text"  class="form-control" id="startTime" name="startTime" style="width: auto;">
         </div>
         <div class="form-group">
-           <label for="endTime">至</label> <input type="text"  class="form-control" id="endTime" name="mongoLog.endTime" style="width: auto;">
+           <label for="endTime">至</label> <input type="text"  class="form-control" id="endTime" name="endTime" style="width: auto;">
         </div>
-        日志状态:<select id="state" class="form-control" name="mongoLog.state"  style="width: auto;">
+        日志状态:<select id="state" class="form-control" name="state"  style="width: auto;">
         <option value="-1" selected>--请选择日志状态--
         <option value="1" >正常时日志
         <option value="2" >异常时日志
@@ -88,13 +88,13 @@
         showData();
     })
     $("#logquery").click(function(){
-        $('#table').bootstrapTable('refresh');
+        $('#table').bootstrapTable("refreshOptions",{pageNumber:1});
     });
     function showData(){
         $("#table").bootstrapTable(
 
             {
-            url:"<%=request.getContextPath()%>/log/queryLog.action",//获取数据的请求路径
+            url:"<%=request.getContextPath()%>/log/queryLog",//获取数据的请求路径
             columns:[
                 {field:"cc",checkbox:true},
                 {field:"startTime",title:"日志时间",width:200,align:"center"},
