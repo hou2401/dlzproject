@@ -123,8 +123,7 @@
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
 	</aop:config>
 
-
 	<!-- 	aop简洁版  记录操作信息-->
 	<bean id="logbean" class="com.jk.aop.AopDemo"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-</beans>  
+</beans>
