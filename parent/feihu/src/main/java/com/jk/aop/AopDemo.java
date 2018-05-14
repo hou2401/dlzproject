@@ -54,7 +54,12 @@ public class AopDemo {
 		logPojo.setExceptionInfo("NoException");
 		logPojo.setEndTime(sdf.format(new Date()));
 		System.out.println("---------------------------------------前置通知结束");
-		mongoTemplate.insert(logPojo);
+		if(logPojo.getMethodname()=="queryLog"){
+
+		}else{
+			mongoTemplate.insert(logPojo);
+		}
+
 	}
 	
 	
