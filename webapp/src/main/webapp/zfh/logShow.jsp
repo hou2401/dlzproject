@@ -30,6 +30,7 @@
     <link href="<%=request.getContextPath() %>/js/bootstrap-dialog/dist/css/bootstrap-dialog.css" rel="stylesheet">
     <!-- bootstrap-fileinput css -->
     <link href="<%=request.getContextPath() %>/js/bootstrap-fileinput/css/fileinput.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/zfh/simpleff.css">
     <!-- bootstrap 核心js文件 -->
     <script src="<%=request.getContextPath() %>/js/bootstrap/js/bootstrap.min.js"></script>
     <!-- bootStrap TreeView -->
@@ -48,6 +49,7 @@
     <!-- bootstrap-fileinput -->
     <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/fileinput.js"></script>
     <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/locales/zh.js"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
 </head>
@@ -66,10 +68,10 @@
         <option value="1" >正常时日志
         <option value="2" >异常时日志
     </select>
+        &nbsp;&nbsp;<button type="button" class="btn btn-primary" id="logquery">查询</button>
     </form>
-    <button type="button" class="btn btn-primary" id="logquery">查询</button>
 </div>
-<table id="table" class="table"></table>
+<table id="table" class="table table-striped table-bordered" width="100%" cellspacing="0"></table>
 <script type="text/javascript">
 
     $("#startTime").datetimepicker({
@@ -104,7 +106,11 @@
                     if(value==""){
                         return "-";
                     }else{
-                        return value;
+                        if(value.length>25){
+                            return '<div class="icoFontlist" title="'+value+'" >'+value.substring(0,25)+'...</div>';
+                        }else{
+                            return value;
+                        }
                     };
                 }},
                 {field:"state",title:"日志Exception",width:300,align:"center",
@@ -112,17 +118,23 @@
                         if(row.state==1){
                             return "<font color='green'>NOexception</font>";
                         }else if(row.state==2){
-                            return "<font color='red'>"+row.exceptionInfo+"</font>";
+                            if(row.exceptionInfo.length>30){
+                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="size: 16">'+row.exceptionInfo.substring(0,30)+'...</div>';
+                            }else{
+                                return row.exceptionInfo;
+                            }
+
+
                         };
                     }}
 
             ],
             pagination:true,//显示分页条
             pageNumber:1,//初始化 页数
-            pageSize:5,//初始化 条数
+            pageSize:10,//初始化 条数
             pageList:[5,10,15],//初始化 可选择的条数
             paginationLoop:false,//关闭分页的无限循环
-            height:530,//高度
+            height:640,//高度
             undefinedText:"-",//有数据为空时 显示的内容
             striped:true,//斑马线
             sortName:"uage",//排序的字段
