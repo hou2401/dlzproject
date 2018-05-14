@@ -107,9 +107,9 @@
                         return "-";
                     }else{
                         if(value.length>25){
-                            return '<div class="icoFontlist" title="'+value+'" >'+value.substring(0,25)+'...</div>';
+                            return '<div class="icoFontlist" title="'+value+'" style="color: #febe29">'+value.substring(0,25)+'...</div>';
                         }else{
-                            return value;
+                            return "<font color='febe29'>"+value+"</font>";
                         }
                     };
                 }},
@@ -119,9 +119,9 @@
                             return "<font color='green'>NOexception</font>";
                         }else if(row.state==2){
                             if(row.exceptionInfo.length>30){
-                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="size: 16">'+row.exceptionInfo.substring(0,30)+'...</div>';
+                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,30)+'...</div>';
                             }else{
-                                return row.exceptionInfo;
+                                return "<font color='red'>"+row.exceptionInfo+"</font>";
                             }
 
 

@@ -8,12 +8,14 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Aspect
+@Component
 public class AopDemo {
 
 	/*@Resource（name=“AomRapsService”）*/
@@ -23,7 +25,7 @@ public class AopDemo {
 	
 	//returnVals:返回值      method :方法的对象        params: 方法的参数    url：实现类的类路径
 
-	@Before("execution(* com.jk.*.service.impl.*.*(..))")
+	@Before("execution(* com.jk.service.impl.*.*(..))")
 	public void afterReturning(JoinPoint jp) throws Throwable {
 		Date date1 = new Date();
 		MongoLog logPojo = new MongoLog();
@@ -52,7 +54,12 @@ public class AopDemo {
 		logPojo.setExceptionInfo("NoException");
 		logPojo.setEndTime(sdf.format(new Date()));
 		System.out.println("---------------------------------------前置通知结束");
-		//mongoTemplate.insert(logPojo);
+		if(logPojo.getMethodname()=="queryLog"){
+
+		}else{
+			mongoTemplate.insert(logPojo);
+		}
+
 	}
 	
 	
@@ -63,7 +70,7 @@ public class AopDemo {
      * @param jp
 
      */
-    @AfterThrowing(value = "execution(* com.jk.*.service.impl.*.*(..))",throwing = "error")
+    @AfterThrowing(value = "execution(* com.jk.service.impl.*.*(..))",throwing = "error")
     public  void afterThrowing(JoinPoint jp,Throwable error){
     	
         System.err.println("异常通知");
