@@ -36,4 +36,9 @@ public class TreeServiceImpl implements TreeService {
     public List<Power> getTree(Integer id) {
         return treeDao.getTree(id);
     }
+
+    @Override
+    public List gettt(int i) {
+        return treeDao.gettt(i);
+    }
 }

@@ -25,4 +25,6 @@ import java.util.List;
 public interface TreeDao {
 
     List<Power> getTree(Integer id);
+
+    List gettt(int i);
 }
