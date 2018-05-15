@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- mybatis框架只有接口 没有实现类
+     mybatis的映射文件就相当于是接口的实现类
+               主要用来编写sql语句
+     mapper 需要与映射接口对应
+     namespace 配置类的全限定名
+ -->
+<mapper namespace="com.jk.dao.HuiDao" >
+  
+
+   
+   <resultMap type="com.jk.pojo.yonghu" id="person">
+   	  <id column="customerid" property="customerid"/>
+   	  <result column="orderid" property="orderid"/>
+   	  <result column="customerphone" property="customerphone"/>
+   	  <result column="customername" property="customername"/>
+   	  <result column="customertype" property="customertype"/>
+   	  <result column="customerjine" property="customerjine"/>
+   	  <result column="customershijian" property="customershijian"/>
+   	  <result column="customerzhekou" property="customerzhekou"/>
+
+       <result column="customerdingdan" property="customerdingdan"/>
+       <result column="customerdizhi" property="customerdizhi"/>
+       <result column="shipCarid" property="shipCarid"/>
+       <result column="shipCardDate" property="shipCardDate"/>
+       <result column="shipCardYouHui" property="shipCardYouHui"/>
+       <result column="shipCardYouHuiDate" property="shipCardYouHuiDate"/>
+   </resultMap>
+   
+   
+
+   <select id="getPerson" resultMap="person">
+       select * from t_yonghu
+   </select>
+
+
+    <!-- 新增 -->
+    <insert id="addPerson" parameterType="com.jk.pojo.yonghu" >
+        insert into t_yonghu
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="orderid != null" >
+                orderid,
+            </if>
+            <if test="customerphone != null" >
+                customerphone,
+            </if>
+            <if test="customername != null" >
+                customername,
+            </if>
+            <if test="customertype != null" >
+                customertype,
+            </if>
+            <if test="customerjine != null" >
+                customerjine,
+            </if>
+            <if test="customershijian != null" >
+                customershijian,
+            </if>
+            <if test="customerzhekou != null" >
+                customerzhekou,
+            </if>
+
+            <if test="customerdingdan != null" >
+                customerdingdan,
+            </if>
+            <if test="customerdizhi != null" >
+                customerdizhi,
+            </if>
+
+            <if test="shipCarid != null" >
+                shipCarid,
+            </if>
+            <if test="shipCardDate != null" >
+                shipCardDate,
+            </if>
+
+            <if test="shipCardYouHui != null" >
+                shipCardYouHui,
+            </if>
+            <if test="shipCardYouHuiDate != null" >
+            shipCardYouHuiDate,
+        </if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+            <if test="orderid != null" >
+                #{orderid,jdbcType=INTEGER},
+            </if>
+            <if test="customerphone != null" >
+                #{customerphone,jdbcType=VARCHAR},
+            </if>
+            <if test="customername != null" >
+                #{customername,jdbcType=VARCHAR},
+            </if>
+            <if test="customertype != null" >
+                #{customertype,jdbcType=VARCHAR},
+            </if>
+            <if test="customerjine != null" >
+                #{customerjine,jdbcType=INTEGER},
+            </if>
+            <if test="customershijian != null" >
+                #{customershijian,jdbcType=VARCHAR},
+            </if>
+
+            <if test="customerzhekou != null" >
+                #{customerzhekou,jdbcType=INTEGER},
+            </if>
+
+            <if test="customerdingdan != null" >
+                #{customerdingdan,jdbcType=VARCHAR},
+            </if>
+
+            <if test="customerdizhi != null" >
+                #{customerdizhi,jdbcType=VARCHAR},
+            </if>
+
+            <if test="shipCarid != null" >
+                #{shipCarid,jdbcType=INTEGER},
+            </if>
+
+
+            <if test="shipCardDate != null" >
+                #{shipCardDate,jdbcType=VARCHAR},
+            </if>
+
+            <if test="shipCardYouHui != null" >
+                #{shipCardYouHui,jdbcType=INTEGER},
+            </if>
+
+            <if test="shipCardYouHuiDate != null" >
+                #{shipCardYouHuiDate,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+</mapper>
