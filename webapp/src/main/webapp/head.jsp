@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8"%>
 <jsp:include page="boots.jsp"></jsp:include>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Title</title>
@@ -92,7 +93,6 @@
         var value;
         $.ajax({
             url:"<%=request.getContextPath()%>/tree/getTree",
-            data:{"id":1},
             type:"post",
             dataType:"json",
             async:false,
@@ -109,31 +109,33 @@
         collapseIcon:"glyphicon glyphicon-star-empty",
         expandIcon:"glyphicon glyphicon-star",
         onNodeSelected: function(event, node) {
-            if(node.nodes == undefined){
-                if(node.url!=null){
-                    $.ajax({
-                        url:node.url,
-                        type:"post",
-                        dataType:"html",
-                        success:function(data){
-                            $.addtabs.add({
-                                title:node.text,
-                                content:data
-                            })
-                        }
-                    })
-                }
+            if(node.url != null && node.url !=""){
+                addTabs(node.text,node.url);
             }
 
 
         }
     })
+    function addTabs(titleStr,urlStr){
+        $.ajax({
+            url:"<%=request.getContextPath()%>"+urlStr,
+            success:function(info){
+                $.addtabs.add({
+                    id:titleStr,
+                    title:titleStr,
+                    content:info,
+                })
+            }
+
+        })
+    }
+
 </script>
 <!-- end: Left Menu -->
 
 <!-- start:content -->
 <div id="content" style="height: 100%;">
-    <div class="nav nav-tabs" ></div>
+    <div id="deviceulid" class="nav nav-tabs" ></div>
     <div  class="tab-content"></div>
 </div>
 <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
