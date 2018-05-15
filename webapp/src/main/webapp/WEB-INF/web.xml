@@ -39,7 +39,7 @@
     <!--修改默认加载的主spring配置文件其他配置文件-->
     <context-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-mybatis.xml</param-value>
+      <param-value>classpath:spring-mybatis.xml,classpath:spring-mongodb.xml</param-value>
     </context-param>
 <!--    &lt;!&ndash; 验证码 &ndash;&gt;
     <servlet>

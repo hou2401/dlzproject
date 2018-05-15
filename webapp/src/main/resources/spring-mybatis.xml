@@ -11,9 +11,12 @@
         http://www.springframework.org/schema/context  
         http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	 
 	<!--自动扫描 将标注Spring注解的类自动转化Bean -->
-	<context:component-scan base-package="com.jk" />
+	<context:component-scan base-package="com.jk">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
 
 	<!-- 加载数据资源属性文件 -->
 	<bean id="propertyConfigurer"
@@ -122,4 +125,7 @@
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
 	</aop:config>
 
-</beans>  
+	<!-- 	aop简洁版  记录操作信息-->
+	<bean id="logbean" class="com.jk.aop.AopDemo"/>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+</beans>
