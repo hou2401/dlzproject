@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.NcyDao" >
+
+
+    <resultMap type="com.jk.pojo.User" id="user">
+        <id column="uid" property="uid"/>
+        <result column="user" property="user"></result>
+        <result column="uname" property="uname"></result>
+        <result column="upass" property="upass"></result>
+        <result column="flag" property="flag"></result>
+        <result column="createtime" property="createtime"></result>
+        <result column="updatetime" property="updatetime"></result>
+    </resultMap>
+
+    <select id="login" parameterType="String" resultType="com.jk.pojo.User">
+   		select *  from  u_user where uname = #{uname}
+   </select>
+
+
+</mapper>
