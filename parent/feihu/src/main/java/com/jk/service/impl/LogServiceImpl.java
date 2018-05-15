@@ -1,4 +1,4 @@
-package com.jk.service.Impl;
+package com.jk.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jk.pojo.MongoLog;
