@@ -14,17 +14,8 @@
     
     
    	<!--  静态文件访问,主要是让DispatcherServlet不拦截以下静态资源 -->
-	<mvc:resources location="/css/" mapping="/css/**"/>
-	<mvc:resources location="/image/" mapping="/image/**"/>
-	<mvc:resources location="/images/" mapping="/images/**"/>
-	<mvc:resources location="/css2/" mapping="/css2/**"/>
-	<mvc:resources location="/zhuce_files/" mapping="/zhuce_files/**"/>
-	<mvc:resources location="/zhuce2_files/" mapping="/zhuce2_files/**"/>
+	<mvc:resources location="/login_files/" mapping="/login_files/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/uploadify/" mapping="/uploadify/**"/>
-	<mvc:resources location="/upload/" mapping="/upload/**"/>
-	<mvc:resources location="/kindeditor/" mapping="/kindeditor/**"/>
-	<mvc:resources location="/bootstrap-3.3.7-dist/" mapping="/bootstrap-3.3.7-dist/**"/>	
     <!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
   	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
   	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
