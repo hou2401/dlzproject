@@ -101,7 +101,7 @@
                 {field:"cc",checkbox:true},
                 {field:"startTime",title:"日志时间",width:200,align:"center"},
                 {field:"methodWhere",title:"方法所在类",width:200,align:"center"},
-                {field:"methodname",title:"请求方法",width:300,align:"center"},
+                {field:"methodname",title:"请求方法",width:150,align:"center"},
                 {field:"parameter",title:"请求参数",width:300,align:"center",formatter: function(value,row,index){
                     if(value==""){
                         return "-";
@@ -113,7 +113,7 @@
                         }
                     };
                 }},
-                {field:"state",title:"日志Exception",width:300,align:"center",
+                {field:"state",title:"日志Exception",width:200,align:"center",
                     formatter: function(value,row,index){
                         if(row.state==1){
                             return "<font color='green'>NOexception</font>";
