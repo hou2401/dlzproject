@@ -75,13 +75,13 @@
 <script type="text/javascript">
 
     $("#startTime").datetimepicker({
-        format:"yyyy-mm-dd hh:mm:ss",//显示格式
+        format:"yyyy-mm-dd hh:ii",//显示格式
         language: 'zh-CN',//显示中文
         autoclose: true,//选中自动关闭
         todayBtn: true,//显示今日按钮
     })
     $("#endTime").datetimepicker({
-        format:"yyyy-mm-dd hh:mm:ss",//显示格式
+        format:"yyyy-mm-dd hh:ii",//显示格式
         language: 'zh-CN',//显示中文
         autoclose: true,//选中自动关闭
         todayBtn: true,//显示今日按钮
