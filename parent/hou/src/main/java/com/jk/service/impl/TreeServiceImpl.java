@@ -37,8 +37,4 @@ public class TreeServiceImpl implements TreeService {
         return treeDao.getTree(id);
     }
 
-    @Override
-    public List gettt(int i) {
-        return treeDao.gettt(i);
-    }
 }

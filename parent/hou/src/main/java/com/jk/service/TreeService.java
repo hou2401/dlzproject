@@ -25,6 +25,4 @@ import java.util.List;
 public interface TreeService {
 
     List<Power> getTree(Integer id);
-
-    List gettt(int i);
 }
