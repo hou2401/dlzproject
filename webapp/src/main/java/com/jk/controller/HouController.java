@@ -11,16 +11,19 @@
 package com.jk.controller;
 
 import com.jk.pojo.Power;
+import com.jk.pojo.User;
 import com.jk.service.TreeService;
+import com.jk.util.ExportExcel;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -33,13 +36,15 @@ import java.util.Map;
 @Controller
 @RequestMapping("tree")
 public class HouController {
-
+    private static final Logger logger=Logger.getLogger(HouController.class);
     @Resource
     private TreeService treeService;
 
     @RequestMapping("getTree")
     @ResponseBody
-    public List<Map<String,Object>> getTree(Integer id){
+    public List<Map<String,Object>> getTree(HttpServletRequest request){
+     User user= (User) request.getSession().getAttribute("user");
+        Integer id=user.getUid();
         List<Power> list = treeService.getTree(id);
         return treeStr(list, 0);
     }
@@ -74,5 +79,6 @@ public class HouController {
 
         return newlist;
     }
+
 
 }

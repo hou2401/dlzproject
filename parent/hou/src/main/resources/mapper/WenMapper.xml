@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.WenDao" >
+
+    <select id="queryuser" resultType="com.jk.pojo.User">
+        select * from u_user
+    </select>
+    <select id="queryrole" resultType="com.jk.pojo.Role">
+        select * from r_role
+    </select>
+
+    <update id="updateflag" parameterType="java.lang.Integer">
+        UPDATE  u_user set flag=0 where uid=#{uid}
+    </update>
+    <select id="getrole" resultType="com.jk.pojo.Role">
+        select * from  r_role
+        where 1=1
+    </select>
+    <select id="getUserRole" resultType="com.jk.pojo.User_role" parameterType="Integer">
+        SELECT ur.`rid`,ur.`uid`,ur.`urid` FROM  u_user u LEFT JOIN  user_role ur  ON u.`uid`=ur.`uid` WHERE ur.`uid`=#{id}
+    </select>
+
+
+    <insert id="addrole">
+        insert into user_role(uid,rid) values
+        <foreach collection="rids" item="rid"  separator=",">
+            (#{uid},#{rid})
+        </foreach>
+    </insert>
+
+    <delete id="deleteuser_role" parameterType="Integer">
+        delete from User_role where uid=#{uid}
+    </delete>
+    <select id="getpower" resultType="com.jk.pojo.Power">
+        select * from  p_power
+        where 1=1
+    </select>
+    <select id="getRolePower" resultType="com.jk.pojo.Role_power" parameterType="Integer">
+        SELECT rp.`rid`,rp.`pid`,rp.`rpid` FROM  r_role r LEFT JOIN  role_power rp  ON r.`rid`=rp.`rid` WHERE rp.rid=#{rid}
+    </select>
+
+    <insert id="addquan">
+        insert into role_power(rid,pid) values
+        <foreach collection="pids" item="pid"  separator=",">
+            (#{rid},#{pid})
+        </foreach>
+    </insert>
+
+    <delete id="deleterole_power" parameterType="Integer">
+        delete from role_power where rid=#{rid}
+    </delete>
+</mapper>
