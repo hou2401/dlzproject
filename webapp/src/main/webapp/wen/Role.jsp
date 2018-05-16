@@ -61,10 +61,10 @@
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/fileinput.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/locales/zh.js"></script>
 
-<table id="user"></table>
+<table id="role"></table>
 <script>
 
-    $("#user").bootstrapTable({
+    $("#role").bootstrapTable({
         url:'<%=request.getContextPath()%>/wen/queryuser',
         pagination: true,                   //是否显示分页（*）
         sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）

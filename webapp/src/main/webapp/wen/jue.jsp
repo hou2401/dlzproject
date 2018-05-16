@@ -46,6 +46,7 @@
                         }
                     }
                     if(count!=1){
+
                         htm+="<input type='checkbox'  name='rid' value='"+data.roles[i].rid+"'>"+data.roles[i].rname
 
                     }

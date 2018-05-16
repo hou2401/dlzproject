@@ -61,10 +61,10 @@
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/fileinput.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/locales/zh.js"></script>
 
-<table id="user"></table>
+<table id="power"></table>
 <script>
 
-    $("#user").bootstrapTable({
+    $("#power").bootstrapTable({
         url:'<%=request.getContextPath()%>/wen/queryrole',
         pagination: true,                   //是否显示分页（*）
         sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
@@ -81,10 +81,45 @@
             {field:'rname',title:'角色名称',width:'10%' },
 
             {field:'s',title:'操作 ',width:'15%',formatter:function(value,row,index){
-                return "<input type='button'  value='分配权限' onclick='role("+row.rid+")'>";
+                return "<input type='button'  value='分配权限' onclick='quan("+row.rid+")'>";
             }}
         ]]
     });
+    function quan(rid){
+
+        BootstrapDialog.show({
+            type : BootstrapDialog.TYPE_SUCCESS,
+            title : '角色分配 ',
+            message:$("<div></div>").load("<%=request.getContextPath()%>/wen/toquan?rid="+rid),
+            buttons : [ {// 设置关闭按钮
+                label : '关闭',
+                action : function(dialogItself) {
+                    dialogItself.close();
+                },
+            },{
+                label : '保存',
+                action : function(dialogItself) {
+                    $.ajax({
+                        url:'<%=request.getContextPath()%>/wen/addquan',
+                        type:"post",
+                        data:$("#qa").serialize(),
+                        dataType:"text",
+                        success:function(data){
+                            data = eval("("+data+")");
+                            if(data.success){
+                                alert("添加成功")
+                                dialogItself.close();
+                            }else{
+                                alert("添加失败")
+                            }
+                        }
+                    })
+
+                }
+            }]
+        });
+    }
+
 
 </script>
 
