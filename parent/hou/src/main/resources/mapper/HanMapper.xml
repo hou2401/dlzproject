@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.HanDao">
+
+	<resultMap type="com.jk.pojo.Goods" id="goods">
+       <id column="goodsid" property="goodsid"/>
+       <result column="goodsname" property="goodsname"></result>
+       <result column="goodsprice" property="goodsprice"></result>
+       <result column="typeid" property="typeid"></result>
+       <result column="goodsimage" property="goodsimage"></result>
+       <result column="goodstime" property="goodstime"></result>
+       <result column="goodsflag" property="goodsflag"></result>
+       <result column="createtime" property="createtime"></result>
+       <result column="updatetime" property="updatetime"></result>
+       <result column="goodskucun" property="goodskucun"></result>
+   </resultMap>
+
+
+   
+	<select id="queryGoods" resultType="com.jk.pojo.Goods">
+			select DISTINCT g.*,t.typename from g_goods g
+					left join g_type t ON  g.typeid = t.typeid
+                    where g.goodsflag = 0
+
+	</select>
+
+
+	<select id="queryType" resultType="com.jk.pojo.Type">
+			select * from g_type
+
+	</select>
+
+	<select id="queryById" parameterType="Integer" resultType="com.jk.pojo.Goods">
+			select * from g_goods where goodsid = #{goodsid}
+
+	</select>
+
+    <insert id="addGoods" parameterType="com.jk.pojo.Goods">
+        insert into g_goods values(goodsid,
+                  #{goodsname},
+                  #{goodsprice},
+                  #{typeid},
+                  #{goodsimage},
+                  #{goodstime},
+                  #{goodsflag},
+                  #{createtime},
+                  #{updatetime},
+                  #{goodskucun})
+    </insert>
+
+
+    <update id="updateFlag" parameterType="com.jk.pojo.Goods">
+
+        update g_goods set goodsflag = 1
+         where goodsid =#{goodsid}
+
+
+
+    </update>
+
+    <delete id="deleteGoods" parameterType="Integer">
+
+       delete from g_goods where goodsid = #{goodsid}
+
+    </delete>
+
+    <update id="updateGoods" parameterType="com.jk.pojo.Goods">
+
+        update g_goods <set>
+        <if test="goodsname !=null and goodsname !=''">
+            goodsname = #{goodsname},
+        </if>
+        <if test="goodsprice !=null and goodsname !=''">
+            goodsprice = #{goodsprice},
+        </if>
+        <if test="typeid !=null">
+            typeid = #{typeid},
+        </if>
+        <if test="goodsimage !=null and goodsimage !=''">
+            goodsimage =#{goodsimage},
+        </if>
+        <if test="goodstime !=null and goodstime !=''">
+            goodstime = #{goodstime},
+        </if>
+        <if test="goodsflag !=null">
+            goodsflag =  #{goodsflag},
+        </if>
+        <if test="createtime !=null and createtime !=''">
+            createtime =   #{createtime},
+        </if>
+        <if test="updatetime !=null and updatetime !=''">
+            updatetime =  #{updatetime},
+        </if>
+        <if test="goodskucun !=null and goodskucun !=''">
+            goodskucun =  #{goodskucun}
+        </if>
+    </set>
+
+      where   goodsid =#{goodsid}
+
+
+
+    </update>
+
+
+
+</mapper>
