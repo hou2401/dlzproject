@@ -19,5 +19,13 @@ public interface WenDao {
 
     void addrole(@Param("uid")Integer uid, @Param("rids")Integer[] rid);
 
-    /*List queryrole();*/
+    List queryrole();
+
+    List<Object> getpower();
+
+    List<Object> getRolePower(Integer rid);
+
+    void deleterole_power(Integer rid);
+
+    void addquan(@Param("rid")Integer rid, @Param("pids")Integer[] pid);
 }

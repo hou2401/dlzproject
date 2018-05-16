@@ -16,5 +16,11 @@ public interface WenService {
 
     void addrole(Integer uid, Integer[] rid);
 
-   /* List queryrole();*/
+    List queryrole();
+
+    List<Object> getpower();
+
+    List<Object> getRolePower(Integer rid);
+
+    void addquan(Integer rid, Integer[] pid);
 }

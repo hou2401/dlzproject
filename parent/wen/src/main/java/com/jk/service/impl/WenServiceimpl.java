@@ -53,8 +53,6 @@ public class WenServiceimpl implements WenService {
 
     @Override
     public void addrole(Integer uid, Integer[] rid) {
-        System.out.println(uid);
-        System.out.println(rid);
         if(uid!=null&uid!=0){
             dao.deleteuser_role(uid);
         }
@@ -62,12 +60,31 @@ public class WenServiceimpl implements WenService {
         dao.addrole(uid,rid);
     }
 
-    /*@Override
+    @Override
     public List queryrole(){
 
         return dao.queryrole();
 
-    }*/
+    }
+
+    @Override
+    public List<Object> getpower() {
+        return dao.getpower();
+    }
+
+    @Override
+    public List<Object> getRolePower(Integer rid) {
+        return  dao.getRolePower(rid);
+    }
+
+    @Override
+    public void addquan(Integer rid, Integer[] pid) {
+        if(rid!=null&rid!=0){
+            dao.deleterole_power(rid);
+        }
+
+        dao.addquan(rid,pid);
+    }
 
 
 }
