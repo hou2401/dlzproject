@@ -69,6 +69,13 @@ public class WenController {
 
         return mv;
     }
+    @RequestMapping("toquan")
+    public ModelAndView toquan(Integer rid){
+        ModelAndView mv=new ModelAndView("wen/quan");
+        mv.addObject("rid", rid);
+
+        return mv;
+    }
     @RequestMapping("getrole")
     @ResponseBody
     public Map<String, List<Object>> getrole(Integer id){
@@ -80,6 +87,18 @@ public class WenController {
         rol.put("list", ur);
 
 
+        return rol;
+    }
+    @RequestMapping("getpower")
+    @ResponseBody
+    public Map<String, List<Object>> getpower(Integer rid){
+        Map<String, List<Object>> rol =new HashMap<String,  List<Object>>();
+        List<Object> power=service.getpower();
+        System.out.println(power);
+        List<Object> quan=service.getRolePower(rid);
+        System.out.println(quan);
+        rol.put("roles", power);
+        rol.put("list", quan);
         return rol;
     }
     @RequestMapping("addrole")
@@ -96,10 +115,24 @@ public class WenController {
         }
         return map;
     }
-    /*@RequestMapping("queryrole")
+    @RequestMapping("addquan")
+    @ResponseBody
+    public Map<String,Object> addquan(Integer rid,@RequestParam(value="pid") Integer[] pid){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try {
+
+            service.addquan(rid,pid);
+            map.put("success",true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+    @RequestMapping("queryrole")
     @ResponseBody
     public List queryrole(){
         List list= service.queryrole();
         return list;
-    }*/
+    }
 }
