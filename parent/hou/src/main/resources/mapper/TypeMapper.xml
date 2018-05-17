@@ -6,13 +6,14 @@
 	<resultMap type="com.jk.pojo.Type" id="type">
        <id column="typeid" property="typeid"/>
        <result column="typename" property="typename"></result>
+       <result column="generaid" property="generaid"></result>
    </resultMap>
 
 
    
 
     <insert id="addType" parameterType="com.jk.pojo.Type">
-        insert into g_type values(typeid,#{typename})
+        insert into g_type values(typeid,#{typename},#{generaid})
     </insert>
 
     <delete id="deleteType" parameterType="Integer">
@@ -30,7 +31,8 @@
     <update id="updateType" parameterType="com.jk.pojo.Type">
 
         update g_type set
-        typename = #{typename}
+        typename = #{typename},
+        generaid = #{generaid}
         where typeid = #{typeid}
 
 
