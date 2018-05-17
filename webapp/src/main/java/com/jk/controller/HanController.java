@@ -12,6 +12,7 @@ package com.jk.controller;/**
 
 import com.alibaba.fastjson.JSON;
 import com.jk.pojo.Goods;
+import com.jk.pojo.Type;
 import com.jk.service.HanService;
 import com.jk.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,8 @@ public class HanController {
 //商品查询
     @RequestMapping("queryGoods")
     @ResponseBody
-    public String queryGoods(){
-        List list = service.queryGoods();
-        System.out.println(list);
+    public String queryGoods(Goods goods){
+        List list = service.queryGoods(goods);
         return JSON.toJSONString(list);
     }
 
@@ -52,8 +52,8 @@ public class HanController {
     //商品类型查询
     @RequestMapping("queryType")
     @ResponseBody
-    public String queryType(){
-        List list = service.queryType();
+    public String queryType(Type type){
+        List list = service.queryType(type);
 
         return JSON.toJSONString(list);
     }

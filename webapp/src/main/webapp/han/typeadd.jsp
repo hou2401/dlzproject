@@ -69,7 +69,9 @@
         <form id="addForm" method="post">
 
             类型名称：<input type='text'  class="form-control" name='typename'/><br/>
-
+            属于：<select  id="generaid" name="generaid" class="form-control">
+                     <option value="">--请选择--</option>
+                    </select><br/>
         </form>
 
         <input type="button" id="subs" value="保存" class="btn btn-primary btn-lg">
@@ -114,6 +116,29 @@
 
 </script>
 
+<script>
+
+    <%-- ------------------------------------------下拉查询--------------------------------------------- --%>
+
+    $.ajax({
+        url:"<%=request.getContextPath()%>/genera/queryGenera",
+        type:"post",
+        dataType:"json",
+        success:function (mt){
+            //给
+            var option = "<option value=''>请选择</option>";
+            $(mt).each(function (){
+                option += "<option value='"+this.generaid+"'>"+this.generaname+"</option>";
+            });
+            $("#generaid").html(option);
+        },
+        error:function (){
+            alert("查询下拉出错");
+        }
+    })
+
+
+</script>
 
 </body>
 </html>

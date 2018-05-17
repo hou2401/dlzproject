@@ -1,12 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2018/5/11
-  Time: 8:42
+  Date: 2018/5/9
+  Time: 10:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+
 <head>
     <title>Title</title>
     <link href="<%=request.getContextPath() %>/js/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -64,60 +66,32 @@
 <!-- 上传图片-->
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadify/jquery.uploadify.js"></script>
 
+<button type="button" class="btn btn-primary" id="generas"> 新增</button>
 
-
-    <div id="chas">
-        <form id="where">
-
-            大类：<span id ="generaids"></span><br/>
-
-            <input type="button" id="serchs" value="查询"/>
-        </form>
-    </div>
-
-
-
-<table class="table" id="type"></table>
+<table class="table" id="genera"></table>
 
 <%-- ------------------------------------------普通查询--------------------------------------------- --%>
 <script>
-    $("#serchs").click(function(){
-        $("#type").bootstrapTable("refresh",{pageNumber:1});
-    })
 
-
-    $("#type").bootstrapTable({
-        url:'<%=request.getContextPath()%>/goods/queryType',
-
-        columns:[[
-            {field:'typeid',title:'类型编号',width:100},
-            {field:'typename',title:'类型名称',width:100},
-            {field:'generaname',title:'大类',width:100},
-            {field:'hsy', title:'操作', width:10,
-                formatter:function(value,row,index){
-                    return  '<button  class="btn btn-primary"  data-toggle="modal" data-target="#myModal1" onclick="updatype('+row.typeid+')">修改</button>' +
-                        '<button type="button" class="btn btn-danger"  onclick="deltype('+row.typeid+')" >删除</button>';
-
-
-                }}
-        ]],
+    $("#genera").bootstrapTable({
+        url:'<%=request.getContextPath()%>/genera/queryGenera',
         pagination: true,                   //是否显示分页（*）
         sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
         pageSize: 3,                     //每页的记录行数（*）
         pageList: [3, 5, 8, 10],        //可供选择的每页的行数（*）
         search: true,                      //是否显示表格搜索
-        strictSearch:true,
         showColumns: true,                  //是否显示所有的列（选择显示的列）
         showRefresh: true,                  //是否显示刷新按钮
         clickToSelect: true,                //是否启用点击选中行
         height:530,//高度
         undefinedText:"-",//有数据为空时 显示的内容
         striped:true,//斑马线
+        sortName:"updatetime",//排序的字段
+        sortOrder:"desc",//排序的方式 desc或asc
         paginationPreText:"上一页",//设置上一页显示的文本
         paginationNextText:"下一页",//设置下一页显示的文本
         uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-        toolbar:"#chas",
         method:"post",
         contentType:"application/x-www-form-urlencoded",
         queryParams:function () {
@@ -125,11 +99,17 @@
             var order=this.sortOrder;
             var offset=(this.pageNumber-1)*this.pageSize;
             var limit=this.pageSize;
-
             return formToJson("where",limit,offset,sort,order);
-        }
+        },
+        columns:[[
+            {field:'generaid',title:'编号',width:100},
+            {field:'generaname',title:'名称',width:100}
 
+        ]]
     });
+
+
+
     function formToJson(id,limit,offset,sort,order) {
         //序列化表当为数组对象
         var arr = $("#" + id).serializeArray();
@@ -162,102 +142,54 @@
     }
 </script>
 
-<%-- ------------------------------------------删除--------------------------------------------- --%>
+
+
+<%-- ------------------------------------------新增--------------------------------------------- --%>
 <script>
-
-    function deltype(typeid){
-        if(confirm("确认删除吗?")){
-            $.ajax({
-                url:"<%=request.getContextPath()%>/type/deleteType",
-                type:"post",
-                data:{"typeid":typeid},
-                dataType:"text",
-                success:function (){
-
-                    $("#type").bootstrapTable('refresh');
-
-
-
-                },
-                error:function (){
-                    alert("未删除");
-                    $("#type").bootstrapTable('refresh');
-
-                }
-            })
-        }
-    }
-
-</script>
-
-<script>
-
-    //-----------------------------------------单选---------------------------------------------------
-    $.ajax({
-        url:"<%=request.getContextPath()%>/genera/queryGenera",
-        type:"post",
-        dataType:"json",
-        success:function (data){
-            var radioHtml = "";
-            $(data).each(function (){
-                radioHtml += "<input type='radio' name='generaid' value='"+this.generaid+"'/>"+this.generaname;
-            });
-
-            $("#generaids").html(radioHtml);
-        },
-        error:function (){
-            alert("查询尺寸单选出错");
-        }
-    })
-
-</script>
-
-<script>
-
-    //-============================----修改-----=============================================================$
-    function updatype(typeid){
-        BootstrapDialog.show({
-            title:"修改页面",//标题
-            message:$("<div></div>").load("<%=request.getContextPath()%>/type/queryById?typeid="+typeid),//弹框内容
-            type:BootstrapDialog.TYPE_WARNING,//弹框的类型
-            closable: true,
-            draggable : true,
-            buttons:[
-                {
-                    label:"确定",
-                    cssClass:"btn-success",
-                    action:function(dialog){
-                        var formData = new FormData(document.getElementById("upForm"));
-                        $.ajax({
-                            url:"<%=request.getContextPath()%>/type/updateType",
-                            type:"post",
-                            data:formData,
-                            dataType:"text",
-                            async:false,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success:function(result){
-                                if(result=="success"){
-                                    alert("成功");
-                                    dialog.close();
-                                    $("#type").bootstrapTable("refresh");
-                                }else{
-                                    alert("修改失败")
-                                    $("#type").bootstrapTable("refresh");
-                                }
-                            }
-
-                        })
+    $("#generas").click(function(){
+    BootstrapDialog.show({
+        type : BootstrapDialog.TYPE_SUCCESS,
+        title : '新增 ',
+        message : $("<div></div>").load("insert.jsp"),
+        //size : BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+        buttons : [ {// 设置关闭按钮
+            label : '关闭',
+            action : function(dialogItself) {
+                dialogItself.close();
+            },
+        },{
+            label : '保存',
+            action : function(dialogItself) {
+                var formData = new FormData(document.getElementById("insertForm"));
+                $.ajax({
+                    url:"<%=request.getContextPath()%>/genera/addGenera",
+                    type:"post",
+                    data:formData,
+                    dataType:"text",
+                    async:false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(data){
+                        if(data=="success"){
+                            alert("成功");
+                            dialogItself.close();
+                            $("#genera").bootstrapTable("refresh",{pageNumber:1});
+                        }else{
+                            alert("失败")
+                        }
+                    },
+                    error:function(){
+                        alert("新增失败")
                     }
-                }
-            ]
-        })
 
-
-
-    }
-
+                })
+            }
+        }
+        ]
+    })
+    });
 </script>
+
 </body>
 </html>
