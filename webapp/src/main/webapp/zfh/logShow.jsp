@@ -99,7 +99,7 @@
             url:"<%=request.getContextPath()%>/log/queryLog",//获取数据的请求路径
             columns:[
                 {field:"cc",checkbox:true},
-                {field:"startTime",title:"日志时间",width:200,align:"center"},
+                {field:"startTime",title:"日志时间",width:220,align:"center"},
                 {field:"username",title:"登录用户",width:120,align:"center"},
                 {field:"methodWhere",title:"方法所在类",width:200,align:"center"},
                 {field:"methodname",title:"请求方法",width:150,align:"center"},
