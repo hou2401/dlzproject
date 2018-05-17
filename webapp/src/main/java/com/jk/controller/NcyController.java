@@ -12,6 +12,7 @@ package com.jk.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.jk.pojo.User;
+
 import com.jk.service.NcyService;
 import com.jk.util.ValidateCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;

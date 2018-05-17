@@ -17,7 +17,7 @@ public class HuiServiceImpl implements HuiService {
     @Autowired
     private HuiDao mapper;
 
-
+//查询
     @Override
     public List<yonghu> getPerson() {
         return mapper.getPerson();

@@ -165,7 +165,7 @@
                     alert("权限不足！");
                 }else{
                     alert("锁定成功！");
-                    $("#user").bootstrapTable('refresh');
+                    $("#sh").bootstrapTable('refresh');
 
                 }
 

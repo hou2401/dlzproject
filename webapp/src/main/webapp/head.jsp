@@ -40,22 +40,9 @@
 
 
             <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>中国 商城</span></li>
+                <li class="user-name"><span>后台管理</span></li>
                 <li class="dropdown avatar-dropdown">
-                    <img src="<%=request.getContextPath()%>/js/asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
-                    <ul class="dropdown-menu user-dropdown">
-                        <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
-                        <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="more">
-                            <ul>
-                                <li><a href=""><span class="fa fa-cogs"></span></a></li>
-                                <li><a href=""><span class="fa fa-lock"></span></a></li>
-                                <li><a href=""><span class="fa fa-power-off "></span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                    <img src="<%=request.getContextPath()%>/js/asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true"/>
                 <li ><a href="#" class="opener-right-menu"><span class="fa fa-coffee"></span></a></li>
             </ul>
         </div>
@@ -124,6 +111,7 @@
         data:getTree(),
         collapseIcon:"glyphicon glyphicon-star-empty",
         expandIcon:"glyphicon glyphicon-star",
+        onhoverColor:"#F5F5F5",
         onNodeSelected: function(event, node) {
             if(node.url != null && node.url !=""){
                 addTabs(node.text,node.url);
@@ -149,7 +137,7 @@
 
 <!-- start:content -->
 <div id="content" style="height: 100%;">
-    <div id="deviceulid" class="nav nav-tabs" ></div>
+    <div  class="nav nav-tabs" ></div>
     <div  class="tab-content"></div>
 </div>
 <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
