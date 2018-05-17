@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.GeneraDao">
+
+	<resultMap type="com.jk.pojo.Genera" id="genera">
+       <id column="generaid" property="generaid"/>
+       <result column="generaname" property="generaname"></result>
+   </resultMap>
+
+
+   
+	<select id="queryGenera" resultType="com.jk.pojo.Genera">
+			select * from g_genera
+
+	</select>
+
+	<insert id="addGenera" parameterType="com.jk.pojo.Genera">
+		insert into g_genera values(generaid,#{generaname})
+	</insert>
+
+</mapper>
