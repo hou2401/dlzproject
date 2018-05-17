@@ -91,7 +91,6 @@
 
 
 
-
 <script>
 
     projectfileoptions = {
@@ -148,7 +147,7 @@
                 option += "<option value='"+this.typeid+"'>"+this.typename+"</option>";
             });
             $("#typeid").html(option);
-            $("#typeids").html(option);
+           // $("#typeids").html(option);
         },
         error:function (){
             alert("查询下拉出错");

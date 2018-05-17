@@ -68,12 +68,12 @@
 
 
 
-
-
-
-
-
-
+    <div id="cha">
+        <form id="wheres">
+            商品类型：<span id ="typeids"></span><br/>
+            <input type="button" id="serch" value="查询"/>
+        </form>
+    </div>
 
 
     <table class="table" id="hsys"></table>
@@ -81,35 +81,13 @@
 <%-- ------------------------------------------普通查询--------------------------------------------- --%>
     <script>
 
+        $("#serch").click(function(){
+            $("#hsys").bootstrapTable("refresh",{pageNumber:1});
+        })
+
         $("#hsys").bootstrapTable({
             url:'<%=request.getContextPath()%>/goods/queryGoods',
-            pagination: true,                   //是否显示分页（*）
-            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
-            pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
-            pageSize: 3,                     //每页的记录行数（*）
-            pageList: [3, 5, 8, 10],        //可供选择的每页的行数（*）
-            search: true,                      //是否显示表格搜索
-            showColumns: true,                  //是否显示所有的列（选择显示的列）
-            showRefresh: true,                  //是否显示刷新按钮
-            clickToSelect: true,                //是否启用点击选中行
-            height:530,//高度
-            undefinedText:"-",//有数据为空时 显示的内容
-            striped:true,//斑马线
-            sortName:"updatetime",//排序的字段
-            sortOrder:"desc",//排序的方式 desc或asc
-            paginationPreText:"上一页",//设置上一页显示的文本
-            paginationNextText:"下一页",//设置下一页显示的文本
-            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-            toolbar:"#cha",
-            method:"post",
-            contentType:"application/x-www-form-urlencoded",
-            queryparam:function () {
-                var sort=this.sortName;
-                var order=this.sortOrder;
-                var offset=(this.pageNumber-1)*this.pageSize;
-                var limit=this.pageSize;
-                return formToJson("where",limit,offset,sort,order);
-            },
+
             columns:[[
                 {field:'goodsid',title:'商品编号',width:100},
                 {field:'goodsname',title:'商品名称',width:100},
@@ -143,7 +121,36 @@
 
                     }}
 
-            ]]
+            ]],
+            pagination: true,                   //是否显示分页（*）
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+            pageSize: 3,                     //每页的记录行数（*）
+            pageList: [3, 5, 8, 10],        //可供选择的每页的行数（*）
+            search: true,                      //是否显示表格搜索
+            strictSearch:true,
+            showColumns: true,                  //是否显示所有的列（选择显示的列）
+            showRefresh: true,                  //是否显示刷新按钮
+            clickToSelect: true,                //是否启用点击选中行
+            height:530,//高度
+            undefinedText:"-",//有数据为空时 显示的内容
+            striped:true,//斑马线
+            sortName:"updatetime",//排序的字段
+            sortOrder:"desc",//排序的方式 desc或asc
+            paginationPreText:"上一页",//设置上一页显示的文本
+            paginationNextText:"下一页",//设置下一页显示的文本
+            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+            toolbar:"#cha",
+            method:"post",
+            contentType:"application/x-www-form-urlencoded",
+            queryParams:function () {
+                var sort=this.sortName;
+                var order=this.sortOrder;
+                var offset=(this.pageNumber-1)*this.pageSize;
+                var limit=this.pageSize;
+
+                return formToJson("wheres",limit,offset,sort,order);
+            }
         });
 
 
@@ -179,6 +186,32 @@
             return json
         }
     </script>
+
+
+
+<script>
+
+    //-----------------------------------------单选---------------------------------------------------
+    $.ajax({
+        url:"<%=request.getContextPath()%>/goods/queryType",
+        type:"post",
+        dataType:"json",
+        success:function (data){
+            var radioHtml = "";
+            $(data).each(function (){
+                radioHtml += "<input type='radio' name='typeid' value='"+this.typeid+"'/>"+this.typename;
+            });
+            $("#typeid").html(radioHtml);
+            $("#typeids").html(radioHtml);
+        },
+        error:function (){
+            alert("查询尺寸单选出错");
+        }
+    })
+
+</script>
+
+
 
 <%-- ------------------------------------------日期--------------------------------------------- --%>
     <script>
@@ -257,55 +290,6 @@
     }
 
     </script>
-
-<%-- ------------------------------------------修改回显--------------------------------------------- --%>
-<%--<script>
-    //回显
-    function upGoods(goodsid){
-        $.ajax({
-            url:"<%=request.getContextPath()%>/goods/queryAllGoods",
-            type:"post",
-            data:{"goodsid":goodsid},
-            dataType:"json",
-            success:function (goods){
-                $("[name='goods.goodsid']").val(goods.goodsid);
-                $("[name='goods.goodsname']").val(goods.goodsname);
-                $("[name='goods.goodsprice']").val(goods.goodsprice);
-                $("[name='goods.typeid']").val(goods.typeid);
-                $("[name='goods.goodsphone']").val(goods.goodsphone);
-                var html="<img src='"+goods.goodsphone+"' width='60' height='60'>";
-                $("#topian").html(html);
-                $("[name='goods.goodstime']").val(goods.goodstime);
-                $("[name='goods.createtime']").val(goods.createtime);
-                $("[name='goods.updatetime']").val(goods.updatetime);
-                $("[name='goods.goodskucun']").val(goods.goodskucun);
-
-            }
-        });
-
-    }
-
-    //修改
-    function upGoods(){
-        $.ajax({
-            url:"<%=request.getContextPath()%>/goods/updateGoods",
-            type:"post",
-            data:$("#upForm").serialize(),
-            dataType:"text",
-            success:function (updateFlag){
-                $("#hsys").bootstrapTable('refresh');
-
-            },
-            error:function (){
-                alert("修改失败");
-
-            }
-
-        })
-
-    }
-
-</script>--%>
 
 
 <script>

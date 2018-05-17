@@ -70,7 +70,7 @@
                     <input type="hidden" value="${goods.goodsid}" name='goodsid'>
                     商品名称：<input type='text' value="${goods.goodsname}" class="form-control" name='goodsname'/><br/>
                     商品价格：<input type='text' value="${goods.goodsprice}"  class="form-control" name='goodsprice'/><br/>
-                    商品类型：<select  id="typeids" name="typeid" class="form-control">
+                    商品类型：<select  id="typeid" name="typeid" class="form-control">
                                 <option value="">--请选择--</option>
                             </select><br/>
                     商品图片： <input type="file" value="${goods.goodsimage}" id="img" name="image" class="projectfile" multiple>
@@ -97,6 +97,7 @@
             var option = "<option value=''>请选择</option>";
             $(mt).each(function (){
                 if(goodstypeid==this.typeid){
+                    alert(this.typeid);
                 option += "<option value='"+this.typeid+"'selected>"+this.typename+"</option>";
                 }else{
                     option += "<option value='"+this.typeid+"'>"+this.typename+"</option>";
