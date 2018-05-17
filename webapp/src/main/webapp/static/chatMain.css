@@ -1,0 +1,103 @@
+
+body
+{
+    font-size:11px
+}
+h3
+{
+    margin:0px
+}
+.divShow
+{
+    border:solid 1px #ccc;
+    height:300px;
+    padding:5px;
+    font-size:12px;
+    overflow-y:scroll
+}
+#divMain
+{
+    border-top-width: 5px;
+    border-top-color: #ccc;
+    border-right-width: 5px;
+    border-right-color: #ccc;
+    border-left-width: 5px;
+    border-left-color: #ccc;
+    border-bottom-width: 5px;
+    border-bottom-color: #ccc;
+}
+#divMain .divTop
+{
+    padding:10px
+}
+#divMain .divTop .divL
+{
+    float:left;
+    width:78%
+}
+#divMain .divTop .divR
+{
+    float:right;
+    width:20%
+}
+#divMain .divBot
+{
+    clear:both;
+    padding:10px
+}
+#divMain .divBot .pb
+{
+    padding-bottom:3px
+}
+#divMain .divBot .pl
+{
+    padding-left:12px
+}
+#divMain .divBot .pt
+{
+    padding-top:3px;
+    color:#555
+}
+.clsTip
+{
+    position:absolute;
+    width:160px;
+    text-align:center;
+    font-size:13px;
+    border-top-width: 1px;
+    border-top-color: #cc3300;
+    border-right-width: 1px;
+    border-right-color: #cc3300;
+    border-left-width: 1px;
+    border-left-color: #cc3300;
+    border-bottom-width: 1px;
+    border-bottom-color: #cc3300;
+    margin-top:5px;
+    padding:2px;
+    margin-bottom:5px;
+    backgroudn-color:#ffe0a3;
+    display:none
+}
+.btn
+{
+    border-top-width: 1px;
+    border-top-color: #666;
+    border-right-width: 1px;
+    border-right-color: #666;
+    border-left-width: 1px;
+    border-left-color: #666;
+    border-bottom-width: 1px;
+    border-bottom-color: #666;
+    padding:2px;
+    width:135px;
+    height:54px;
+    font-size:16px;
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,
+    EndColorStr=#ECE9D8)
+}
+.txt
+{
+    border:#666 1px solid;
+    padding:2px;
+    margin-right:3px
+}
