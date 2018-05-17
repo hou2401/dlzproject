@@ -10,6 +10,7 @@
  */
 package com.jk.dao;
 
+import com.jk.pojo.Finance;
 import com.jk.pojo.Power;
 
 import java.util.List;
@@ -25,4 +26,6 @@ import java.util.List;
 public interface TreeDao {
 
     List<Power> getTree(Integer id);
+
+    List<Finance> querychar();
 }
