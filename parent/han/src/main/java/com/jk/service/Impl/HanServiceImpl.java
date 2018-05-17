@@ -11,6 +11,7 @@ package com.jk.service.Impl;/**
 
 import com.jk.dao.HanDao;
 import com.jk.pojo.Goods;
+import com.jk.pojo.Type;
 import com.jk.service.HanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class HanServiceImpl implements HanService{
     @Autowired
     private HanDao dao;
 
-    public List queryGoods() {
-        return dao.queryGoods();
+    public List queryGoods(Goods goods) {
+        return dao.queryGoods(goods);
     }
 
-    public List queryType() {
+    public List queryType(Type type) {
 
-        return dao.queryType();
+        return dao.queryType(type);
     }
 
     public void addGoods(Goods goods) {
