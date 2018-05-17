@@ -60,10 +60,53 @@
 <!-- bootstrap-fileinput -->
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/fileinput.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap-fileinput/js/locales/zh.js"></script>
-
+<button type="button" class="btn btn-success" id="adduser">新增账户</button>
 <table id="user"></table>
 
 <script>
+    $("#adduser").click(function(){
+        BootstrapDialog.show({
+            type : BootstrapDialog.TYPE_SUCCESS,
+            title : '新增 ',
+            message : $("<div></div>").load("wen/adduser.jsp"),
+            //size : BootstrapDialog.SIZE_SMALL,//size为小，默认的对话框比较宽
+            buttons : [ {// 设置关闭按钮
+                label : '关闭',
+                action : function(dialogItself) {
+                    dialogItself.close();
+                },
+            },{
+                label : '保存',
+                action : function(dialogItself) {
+                    var formData = new FormData(document.getElementById("adduserform"));
+                    $.ajax({
+                        url:"<%=request.getContextPath()%>/wen/addUser",
+                        type:"post",
+                        data:formData,
+                        dataType:"json",
+                        async:false,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success:function(data){
+                            if(data.success=="success"){
+                                alert("成功");
+                                dialogItself.close();
+                                $("#user").bootstrapTable("refresh");
+                            }else{
+                                alert("失败")
+                            }
+                        },
+                        error:function(){
+                            alert("新增失败")
+                        }
+
+                    })
+                }
+            }
+            ]
+        });
+    })
 
     $("#user").bootstrapTable({
         url:'<%=request.getContextPath()%>/wen/queryuser',
