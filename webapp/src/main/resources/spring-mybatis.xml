@@ -117,7 +117,16 @@
 			<tx:method name="load*" propagation="SUPPORTS" />
 			<tx:method name="search*" propagation="SUPPORTS" />
 			<tx:method name="datagrid*" propagation="SUPPORTS" />
+
+			<tx:method name="user*" propagation="SUPPORTS" />
+			<tx:method name="toLogin*" propagation="SUPPORTS" />
+			<tx:method name="Login*" propagation="SUPPORTS" />
+			<tx:method name="toChatMain*" propagation="SUPPORTS" />
+			<tx:method name="sentContent*" propagation="SUPPORTS" />
+			<tx:method name="getMassageList*" propagation="SUPPORTS" />
+			<tx:method name="getOnlineList*" propagation="SUPPORTS" />
 			<tx:method name="*" propagation="SUPPORTS" />
+
 		</tx:attributes>
 	</tx:advice>
 	<aop:config> 
