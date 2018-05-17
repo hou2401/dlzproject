@@ -39,11 +39,16 @@ public class NcyServiceImpl implements NcyService {
     @Resource
     private NcyDao ncyDao;
 
-    @Override
+
     public Map<String, Object> login(String validataCode, HttpSession session, String sessionCode, User user, HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
         //String  hql = " from User where uname = '"+user.getUser()+"'";
         User u = ncyDao.login(user.getUname());
+        //将用户权限查出，用于拦截。
+        Integer userrolelist = ncyDao.getuserrole(u.getUid());
+        System.out.print(userrolelist+"-------------");
+        request.getSession().setAttribute("role", userrolelist);
+
         String mas="";
        /* int loginFlag=0;*/
         if(u!=null){

@@ -10,10 +10,11 @@
  */
 package com.jk.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.jk.pojo.Highchars;
 import com.jk.pojo.Power;
 import com.jk.pojo.User;
 import com.jk.service.TreeService;
-import com.jk.util.ExportExcel;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,14 @@ public class HouController {
         }
 
         return newlist;
+    }
+    @RequestMapping("/querychar")
+    @ResponseBody
+    public String querychar(){
+
+        List<Highchars> map = treeService.querychar();
+
+        return JSON.toJSONString(map);
     }
 
 

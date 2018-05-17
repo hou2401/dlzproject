@@ -49,6 +49,19 @@ public class WenController {
         return list;
     }
 
+    @RequestMapping("/addUser")
+    @ResponseBody
+    public Map<String,Object> addUser(User user){
+        Map<String,Object> map= new HashMap<String, Object>();
+        Integer addcount=service.addUser(user);
+        if(addcount==1){
+            map.put("success", "success");
+        }else{
+            map.put("error", "error");
+        }
+        return map;
+
+    }
     @RequestMapping("updateflag")
     @ResponseBody
     public Map<String, Object> updateflag(Model model, Integer uid){

@@ -24,4 +24,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface NcyDao {
     User login(String uname);
+
+    Integer getuserrole(Integer uid);
 }

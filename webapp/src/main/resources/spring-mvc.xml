@@ -18,6 +18,9 @@
    	<!--  静态文件访问,主要是让DispatcherServlet不拦截以下静态资源 -->
 	<mvc:resources location="/login_files/" mapping="/login_files/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/static/" mapping="/static/**"/>
     <!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
   	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
   	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
@@ -54,12 +57,15 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
  	<!-- Interceptors拦截器--> 
- 	<!--  <mvc:interceptors> 
+  <mvc:interceptors>
           <mvc:interceptor> 
- 	        <mvc:mapping path="/**" /> 
- 	        <mvc:exclude-mapping path="/login.jsp"/> 
+ 	        <mvc:mapping path="/**" />
+ 	        <mvc:exclude-mapping path="/login.jsp"/>
  	        <mvc:exclude-mapping path="/js/**"/>
- 	        <mvc:exclude-mapping path="/css/**"/> 
+ 	        <mvc:exclude-mapping path="/ncyController/login"/>
+ 	        <mvc:exclude-mapping path="/ncyController/validateCode"/>
+ 	        <mvc:exclude-mapping path="/login_files/**"/>
+ 	        <mvc:exclude-mapping path="/css/**"/>
  	        <mvc:exclude-mapping path="/jsp/**"/> 
  	        <mvc:exclude-mapping path="/areaLogic/**"/> 
 	        <mvc:exclude-mapping path="/images/**"/> 
@@ -68,6 +74,6 @@
  	        <mvc:exclude-mapping path="/attached/image/**"/> 
  	    	<bean class="com.jk.interceptors.InterFilter"/> 
  	    </mvc:interceptor>	
-   </mvc:interceptors>  -->
+   </mvc:interceptors>
 
 </beans>

@@ -1,5 +1,6 @@
 package com.jk.dao;
 
+import com.jk.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface WenDao {
     void deleterole_power(Integer rid);
 
     void addquan(@Param("rid")Integer rid, @Param("pids")Integer[] pid);
+
+    Integer addUser(User user);
 }

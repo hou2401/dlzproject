@@ -10,6 +10,7 @@
  */
 package com.jk.service;
 
+import com.jk.pojo.Highchars;
 import com.jk.pojo.Power;
 
 import java.util.List;
@@ -25,4 +26,6 @@ import java.util.List;
 public interface TreeService {
 
     List<Power> getTree(Integer id);
+
+    List<Highchars> querychar();
 }

@@ -3,7 +3,12 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/feihu" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/han" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/parent/hou" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/ncy" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/wen" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/zps" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/util" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webapp" charset="UTF-8" />
   </component>
