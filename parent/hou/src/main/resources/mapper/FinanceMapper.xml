@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.FinanceDao" >
+    <!--查询财务表 财务表 商品表 订单表 用户表-->
+     <select id="queryFinance" resultType="com.jk.pojo.Finance">
+            select o.customernumber,y.customername,g.goodsname,g.goodsprice,
+            y.customerphone,f.financedate,f.financestate,f.financeid
+            from t_finance f,t_order o,t_yonghu y,g_goods g WHERE
+			o.customerid=y.customerid and o.goodsid = g.goodsid AND
+			f.orderid=o.orderid and (o.orderstate=4 or f.financestate=1)
+     </select>
+    <!--修改订单状态为5-->
+     <insert id="updateOrderState">
+          update  t_order set orderstate= 5 where customernumber= #{customernumber}
+     </insert>
+    <!--修改财务状态为1-->
+     <insert id="updateFinanceState">
+         update  t_finance set financestate= 1 where financeid= #{financeid}
+     </insert>
+    <!--修改财务总展示价格 actualamount refundamount tradingvolume a是总收入 * t是真实收入* r是总退款金额
+-->
+     <insert id="updateSunmary">
+          update t_finance
+                set refundamount=refundamount+#{goodstotalprice},
+                tradingvolume=tradingvolume-#{goodstotalprice},
+                financenewdate=DATE_FORMAT(CURRENT_TIMESTAMP,'%Y-%m-%d %h:%i:%s')
+                where financeid=1
+     </insert>
+    <!--查询财务表-->
+   <select id="querySunmary" resultType="com.jk.pojo.Finance">
+    SELECT  * from t_finance where financeid=1
+    </select>
+
+
+
+</mapper>

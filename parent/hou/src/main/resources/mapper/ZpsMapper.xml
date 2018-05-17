@@ -7,9 +7,6 @@
      namespace 配置类的全限定名
  -->
 <mapper namespace="com.jk.dao.HuiDao" >
-  
-
-   
    <resultMap type="com.jk.pojo.yonghu" id="person">
    	  <id column="customerid" property="customerid"/>
    	  <result column="orderid" property="orderid"/>
@@ -19,7 +16,6 @@
    	  <result column="customerjine" property="customerjine"/>
    	  <result column="customershijian" property="customershijian"/>
    	  <result column="customerzhekou" property="customerzhekou"/>
-
        <result column="customerdingdan" property="customerdingdan"/>
        <result column="customerdizhi" property="customerdizhi"/>
        <result column="shipCarid" property="shipCarid"/>
@@ -134,6 +130,79 @@
             </if>
         </trim>
     </insert>
+
+    <!-- 删除 -->
+    <delete id="deleteUser" parameterType="java.util.List" >
+        delete from t_yonghu where customerid =#{customerid}
+    </delete>
+    <!-- 修改 -->
+    <!-- 回显 -->
+    <select id="findComById" resultType="com.jk.pojo.yonghu">
+        select * from t_yonghu where customerid = #{customerid}
+    </select>
+
+    <!-- 修改 -->
+    <update id="updateCom">
+        update t_yonghu
+        <set>
+            orderid = #{orderid},
+            customerphone = #{customerphone},
+            customername = #{customername},
+            customertype = #{customertype},
+            customerjine = #{customerjine},
+            customershijian = #{customershijian},
+            customerzhekou = #{customerzhekou},
+            customerdingdan = #{customerdingdan},
+            customerdizhi = #{customerdizhi},
+            shipCarid = #{shipCarid},
+            shipCardDate = #{shipCardDate},
+            shipCardYouHui = #{shipCardYouHui},
+            shipCardYouHuiDate = #{shipCardYouHuiDate},
+        </set>
+        where customerid = #{customerid}
+    </update>
+
+    <!-- 查询所有的折扣 -->
+    <select id="queryAllZheKou" resultType="com.jk.pojo.ShipCard">
+        SELECT sd.carid carId,sd.caprice caprice FROM ship_card sd
+    </select>
+
+    <!-- 修改会员卡的折扣 -->
+    <update id="updateZheKou">
+        UPDATE ship_card sd SET sd.`caprice` = #{zheKou} WHERE sd.`carid` = #{zheKouId}
+    </update>
+
+    <!-- 修改优惠包状态 -->
+    <update id="queRenYouHui">
+        UPDATE t_yonghu tu SET tu.`shipCardYouHui` = 2 ,tu.`shipCardYouHuiDate` = #{nowDate} WHERE tu.`customerid` = #{customerid}
+    </update>
+
+
+    <!-- 查询所有的普通用户条数 -->
+    <select id="selectPuTongCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM t_yonghu us WHERE us.shipCarid = 1
+        <if test = "queryMoney != null and queryMoney != ''">
+            AND us.nowmoney &lt;= #{queryMoney} + 10
+            AND us.nowmoney &gt;= #{queryMoney} - 10
+        </if>
+    </select>
+
+    <!-- 改状态的方法 -->
+    <update id="updateZhuangTai">
+        UPDATE t_yonghu tu SET tu.`shipCardYouHui` = 3 WHERE tu.`customerid` = #{customerid}
+    </update>
+
+    <!-- 改状态的方法 -->
+    <update id="gaiMoney">
+        UPDATE t_yonghu tu SET tu.`nowmoney` = tu.`nowmoney` - #{zuJin} WHERE tu.`customerid` = #{customerid}
+    </update>
+
+    <!-- 查询该用户会员卡的详细信息 -->
+    <select id="queryOneUser" resultType="com.jk.pojo.yonghu">
+        SELECT * FROM t_yonghu where customerid = #{customerid}
+    </select>
+
+
 
 
 </mapper>

@@ -14,6 +14,7 @@
     <modules>
         <module>hou</module>
         <module>feihu</module>
+        <module>kefu</module>
     </modules>
     <dependencies>
     <dependency>

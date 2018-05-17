@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<%@ page isELIgnored="false" %>
 <body>
 	<form id="person" >
 		<input type="hidden"  value="${com.customerid}" name="customerid" id="customerid"/>

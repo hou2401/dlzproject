@@ -6,9 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="feihu" />
+        <module name="han" />
         <module name="hou" />
+        <module name="ncy" />
         <module name="util" />
         <module name="webapp" />
+        <module name="wev" />
+        <module name="zps" />
       </profile>
     </annotationProcessing>
   </component>

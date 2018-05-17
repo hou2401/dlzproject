@@ -6,8 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-
 </head>
 <body>
 	<div id="cha">
@@ -73,16 +71,82 @@
 			       {field:"orderid",title:"订单id"},
 			       {field:"customerphone",title:"手机号",align:"center"},
 			       {field:"customername",title:"用户名称",sortable:true},
-
 				{field:"customertype",title:"用户类型"},
-				{field:"customerjine",title:"现有金额"},
+				{field:"customerjine",title:"现有金额",
+					formatter: function(value,row,index){
+						var nowMoneyTiShi = "";
+						if(row.customerjine < 10 && row.customerjine >= 0){
+							nowMoneyTiShi = "<font color = 'red'> 余额不足十元 </font>";
+						}
+						if(row.customerjine < 0 && row.customerjine >= -30){
+							nowMoneyTiShi = "<font color = 'red'> 余额已欠(原价购物) </font>";
+						}
+						return row.customerjine + nowMoneyTiShi;
+					}
+				},
 				{field:"customershijian",title:"会员开通时间",align:"center"},
 				{field:"customerzhekou",title:"折扣",sortable:true},
 
 				{field:"customerdingdan",title:"订单人姓名"},
 				{field:"customerdizhi",title:"订单地址"},
 				{field:"shipCarid",title:"会员id",align:"center"},
-				{field:"shipCardDate",title:"医院卡办理时间",sortable:true},
+				{field:"shipCardDate",title:"会员卡办理时间",
+					formatter: function(value,row,index){
+						var date = new Date();
+						var oldyear = date.getFullYear() - 1;
+						var nowyear = date.getFullYear();
+						var yue = date.getMonth() + 1;
+						var ri = date.getDate();
+						if(yue < 10){
+							oldDate = oldyear+"-0"+yue+"-"+ri;
+						}else{
+							oldDate = oldyear+"-"+yue+"-"+ri;
+						}
+						nowDate = nowyear+"-"+yue+"-"+ri;
+
+						var shipCardYouHuiDate = row.shipCardYouHuiDate;
+						/* 如果优惠包的开始时间为不为空 */
+						if(row.shipCardYouHuiDate != null){
+							var youHuiDateYear = "";
+							var youHuiDateMonth = "";
+							youHuiDateYear = shipCardYouHuiDate.substr(0,4);
+							var youHuiDateMont = shipCardYouHuiDate.substr(5,2);
+							youHuiDateMonth = youHuiDateMont - (-3) ;
+							if(youHuiDateMonth > 12){
+								youHuiDateMonth = youHuiDateMonth - 12;
+								youHuiDateYear = youHuiDateYear - (-1);
+							}
+							var youHuiDateRi = shipCardYouHuiDate.substr(8,2);
+							var youHuiEndDate = youHuiDateYear+"-"+youHuiDateMonth+"-"+youHuiDateRi;
+						}
+						if(row.shipCardDate <= oldDate){
+							var zhuangTai = "";
+							if(row.shipCardYouHui == 1){
+								zhuangTai = "<font color = 'red'> (待)铂金优惠期<font>";
+							}
+							if(row.shipCardYouHui == 2){
+								zhuangTai = "<font color = 'red'> (期间)铂金优惠期<font>";
+							}
+							if(row.shipCardYouHui == 3){
+								zhuangTai = "<font color = 'red'> (已)铂金优惠期<font>";
+							}
+							/* 如果优惠包的开始时间为不为空 */
+							if(row.shipCardYouHuiDate != null){
+								/* 当前的系统时间如果大于优惠包的截止时间,那么已过优惠期 */
+								if(nowDate > youHuiEndDate){
+									zhuangTai = "<font color = 'red'> (已)铂金优惠期<font>";
+								}
+								/* 当前的系统时间如果小于或等于优惠包的截止时间,那么在优惠期间 */
+								if(nowDate <= youHuiEndDate){
+									zhuangTai = "<font color = 'red'> (期间)铂金优惠期<font>";
+								}
+							}
+							return row.shipCardDate + zhuangTai;
+						}else{
+							return row.shipCardDate;
+						}
+					}
+				},
 				{field:"shipCardYouHui",title:"会员优惠包开通时间"},
 
 			       {field:"shipCardYouHuiDate",title:"会员卡包使用时间",formatter:function(value,row,index){
@@ -101,17 +165,16 @@
 			            title:'操作',
 			            width:10,
 			        	formatter: function(value,row,index){
-			        		return '<button type="button" onclick="delGong('+row.p_id+')"class="btn btn-danger"><font>删除</font></button><button type="button" onclick="xiugai(\''+row.p_id+'\')" class="btn btn-info"><font>修改</font></button>';
+			        		return '<button type="button" onclick="delGong('+row.customerid+')"class="btn btn-danger"><font>删除</font></button><button type="button" onclick="xiugai(\''+row.customerid+'\')" class="btn btn-info"><font>修改</font></button>';
 				        }
 			       }
-			       
 			       ],
 			       pagination:true,//显示分页条
 				   pageNumber:1,//初始化 页数
 				   pageSize:10,//初始化 条数
 				   pageList:[5,10,15],//初始化 可选择的条数
 				   paginationLoop:false,//关闭分页的无限循环
-				   height:530,//高度
+				   height:650,//高度
 				   undefinedText:"-",//有数据为空时 显示的内容
 				   striped:true,//斑马线
 				   sortName:"p_age",//排序的字段
@@ -179,12 +242,13 @@
 	    var json = JSON.parse(jsonStr)
 	    return json
 	}
-		function delGong(p_id){
+		//shanchu
+		function delGong(customerid){
 			 $.ajax({
-					url:"<%=request.getContextPath()%>/setTree/deleteUser.do",
+					url:"<%=request.getContextPath()%>/zpsTree/deleteUser",
 					dataType:"text",
 					type:"post",
-					data:{"p_id":p_id},
+					data:{"customerid":customerid},
 					success:function(data){
 						
 						
@@ -239,12 +303,12 @@
 		 
 	
 		 
-		 function xiugai(p_id){
+		 function xiugai(customerid){
 				
 				BootstrapDialog.show({
 			        type : BootstrapDialog.TYPE_SUCCESS,
 			        title : '修改 ',
-			        message : $('<div></div>').load('<%=request.getContextPath()%>/setTree/findComById.do?p_id='+p_id),
+			        message : $('<div></div>').load('<%=request.getContextPath()%>/zpsTree/findComById?customerid='+customerid),
 			        size : BootstrapDialog.BIG_SMALL,//size为小，默认的对话框比较宽
 			        buttons : [ {// 设置关闭按钮
 			            label : '关闭',
@@ -256,7 +320,7 @@
 				            action : function(dialogItself) {
 				            	 var formData = new FormData(document.getElementById("person"));
 				            	 $.ajax({
-				        			 url:"<%=request.getContextPath()%>/setTree/updateCom.do",
+				        			 url:"<%=request.getContextPath()%>/zpsTree/updateCom",
 				        			 type:"post",
 				        			 data:formData,
 				        			 dataType:"text",
@@ -279,7 +343,7 @@
 			        	}
 			        ]
 			    });
-				
+
 			}
 			
 		 
@@ -320,10 +384,33 @@
 					}	
 					
 			})
-		 
-		 
-		 
-		 
+
+
+		/* 点击确认优惠的时候，走后台将用户优惠状态改为2 （正在优惠期中）
+		 并将确认优惠的当前时间传入后台 存入数据库中，
+		 当用户使用会员卡租书时，先判断他是否已过优惠期（用确认优惠的时间+3个月 与当前时间比较，
+		 如果，超过则进数据库改变状态 为 3 （已过优惠期）
+		 ）
+		 */
+		function zuanShiYouHuiBtn(customerid){
+			$.ajax({
+				url:"<%=request.getContextPath()%>/zpsTree/queRenYouHui",
+				type:"post",
+				data:{"nowDate":nowDate, "customerid":customerid},
+				dataType:"text",
+				success:function(result){
+					if(result == "success"){
+						$.messager.alert("提示","现已开始使用优惠包！！！");
+						puTongChaXun();
+					}else{
+						$.messager.alert("提示","无法使用优惠包！！！");
+					}
+				},
+				error:function(){
+					$.messager.alert("提示","修改优惠包状态失败,请查看后台代码！！！");
+				}
+			})
+		}
 	</script>
 </body>
 </html>
