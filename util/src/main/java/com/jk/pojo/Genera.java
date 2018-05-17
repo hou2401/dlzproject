@@ -24,6 +24,7 @@ public class Genera implements Serializable{
     private Integer generaid;
     private String generaname;
 
+
     public Integer getGeneraid() {
         return generaid;
     }
