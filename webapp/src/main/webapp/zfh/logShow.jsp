@@ -100,6 +100,7 @@
             columns:[
                 {field:"cc",checkbox:true},
                 {field:"startTime",title:"日志时间",width:200,align:"center"},
+                {field:"username",title:"登录用户",width:120,align:"center"},
                 {field:"methodWhere",title:"方法所在类",width:200,align:"center"},
                 {field:"methodname",title:"请求方法",width:150,align:"center"},
                 {field:"parameter",title:"请求参数",width:300,align:"center",formatter: function(value,row,index){
@@ -118,8 +119,8 @@
                         if(row.state==1){
                             return "<font color='green'>NOexception</font>";
                         }else if(row.state==2){
-                            if(row.exceptionInfo.length>30){
-                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,30)+'...</div>';
+                            if(row.exceptionInfo.length>25){
+                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,25)+'...</div>';
                             }else{
                                 return "<font color='red'>"+row.exceptionInfo+"</font>";
                             }
