@@ -49,4 +49,11 @@
     <delete id="deleterole_power" parameterType="Integer">
         delete from role_power where rid=#{rid}
     </delete>
+    <insert id="addUser" parameterType="com.jk.pojo.User">
+        insert into u_user(uname,upass,user,flag) values(
+         #{uname},
+         #{upass},
+         #{user},
+         1)
+    </insert>
 </mapper>

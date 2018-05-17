@@ -23,4 +23,6 @@ public interface WenService {
     List<Object> getRolePower(Integer rid);
 
     void addquan(Integer rid, Integer[] pid);
+
+    Integer addUser(User user);
 }

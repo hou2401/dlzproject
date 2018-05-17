@@ -1,6 +1,7 @@
 package com.jk.aop;
 
 import com.jk.pojo.MongoLog;
+import com.jk.pojo.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,7 +10,11 @@ import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +34,7 @@ public class AopDemo {
 	public void afterReturning(JoinPoint jp) throws Throwable {
 		Date date1 = new Date();
 		MongoLog logPojo = new MongoLog();
+
 		System.out.println("前置通知");
 		System.out.println("方法所在类:" + jp.getTarget().getClass().getName());
 		System.out.println("" + jp.getSignature().getName() + "方法");
@@ -43,7 +49,19 @@ public class AopDemo {
 					descArgs +="null"+",";
 				}
 			}
-			System.out.println("------参数" + descArgs);
+			System.out.println("------参数" +descArgs );
+		}
+		if(jp.getSignature().getName().equals("login")){
+			String[] aa = descArgs.split("=");
+			String name = aa[3];
+			String[] bb = name.split(",");
+			String cc = bb[0].substring(1,bb[0].length()-1);
+			logPojo.setUsername(cc);
+		}else{
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+			// 取到当前的操作用户
+			User user = (User) request.getSession().getAttribute("user");
+			logPojo.setUsername(user.getUname());
 		}
 		logPojo.setMethodWhere(jp.getTarget().getClass().getName());
 		logPojo.setParameter(descArgs);
@@ -54,12 +72,11 @@ public class AopDemo {
 		logPojo.setExceptionInfo("NoException");
 		logPojo.setEndTime(sdf.format(new Date()));
 		System.out.println("---------------------------------------前置通知结束");
-		/*if(logPojo.getMethodname()=="queryLog"){
+		if(logPojo.getMethodname()=="queryLog"){
 
 		}else{
 			mongoTemplate.insert(logPojo);
-		}*/
-
+		}
 	}
 	
 	
@@ -105,6 +122,18 @@ public class AopDemo {
 			logPojo.setParameter(descArgs);
 		logPojo.setState(2);
 		logPojo.setMethodWhere(jp.getTarget().getClass().getName());
+			if(jp.getSignature().getName().equals("login")){
+				String[] aa = descArgs.split("=");
+				String name = aa[3];
+				String[] bb = name.split(",");
+				String cc = bb[0].substring(1,bb[0].length()-1);
+				logPojo.setUsername(cc);
+			}else{
+				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+				// 取到当前的操作用户
+				User user = (User) request.getSession().getAttribute("user");
+				logPojo.setUsername(user.getUname());
+			}
 		mongoTemplate.insert(logPojo);
 		System.err.println("The method "+methodName+" occurs exection: "+ error);
 			System.out.println("--------------------------------------------------异常通知结束");
