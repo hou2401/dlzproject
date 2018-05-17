@@ -15,18 +15,34 @@
        <result column="goodskucun" property="goodskucun"></result>
    </resultMap>
 
-
+    <resultMap type="com.jk.pojo.Type" id="type">
+        <id column="typeid" property="typeid"/>
+        <result column="typename" property="typename"></result>
+        <result column="generaid" property="generaid"></result>
+    </resultMap>
    
-	<select id="queryGoods" resultType="com.jk.pojo.Goods">
+	<select id="queryGoods" resultType="com.jk.pojo.Goods" parameterType="String">
 			select DISTINCT g.*,t.typename from g_goods g
 					left join g_type t ON  g.typeid = t.typeid
                     where g.goodsflag = 0
 
+        <if test="goods.typeid != '' and goods.typeid !=null">
+            and t.typeid = #{goods.typeid}
+        </if>
+
 	</select>
 
+	<select id="queryType"  resultType="com.jk.pojo.Type" parameterType="String">
+			 SELECT DISTINCT t.*,g.generaname FROM g_type t
+			LEFT JOIN g_genera g ON  t.generaid = g.generaid
+              where 1=1
 
-	<select id="queryType" resultType="com.jk.pojo.Type">
-			select * from g_type
+            <if test="type.generaid != '' and type.generaid !=null">
+               and  g.generaid = #{type.generaid}
+           </if>
+
+
+
 
 	</select>
 
