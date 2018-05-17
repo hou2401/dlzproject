@@ -17,5 +17,8 @@
    		select *  from  u_user where uname = #{uname}
    </select>
 
+    <select id="getuserrole" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select min(rid) from user_role where uid = #{uid}
+    </select>
 
 </mapper>

@@ -11,6 +11,7 @@
 package com.jk.service.impl;
 
 import com.jk.dao.WenDao;
+import com.jk.pojo.User;
 import com.jk.service.WenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,11 @@ public class WenServiceimpl implements WenService {
         }
 
         dao.addquan(rid,pid);
+    }
+
+    @Override
+    public Integer addUser(User user) {
+        return dao.addUser(user);
     }
 
 
