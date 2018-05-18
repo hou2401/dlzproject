@@ -107,11 +107,12 @@
                     if(value==""){
                         return "-";
                     }else{
-                        if(value.length>25){
-                            return '<div class="icoFontlist" title="'+value+'" style="color: #febe29">'+value.substring(0,25)+'...</div>';
-                        }else{
-                            return "<font color='febe29'>"+value+"</font>";
-                        }
+                            if(value.length>25){
+                                return '<div class="icoFontlist" title="'+value+'" style="color: #febe29">'+value.substring(0,25)+'...</div>';
+                            }else{
+                                return "<font color='febe29'>"+value+"</font>";
+                            }
+
                     };
                 }},
                 {field:"state",title:"日志Exception",width:200,align:"center",
@@ -119,11 +120,16 @@
                         if(row.state==1){
                             return "<font color='green'>NOexception</font>";
                         }else if(row.state==2){
-                            if(row.exceptionInfo.length>25){
-                                return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,25)+'...</div>';
+                            if(row.exceptionInfo!=null){
+                                if(row.exceptionInfo.length>25){
+                                    return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,25)+'...</div>';
+                                }else{
+                                    return "<font color='red'>"+row.exceptionInfo+"</font>";
+                                }
                             }else{
-                                return "<font color='red'>"+row.exceptionInfo+"</font>";
+                                return "<font color='red'>-</font>"
                             }
+
 
 
                         };
