@@ -162,8 +162,8 @@
                  return '<a href="#">'+row.p_name+'</a>';
              }, */
             searchAlign:"left",//搜索框的显示位置
-            paginationHAlign:"left",//分页按钮的显示位置
-            paginationDetailHAlign:"right",//总页数 和条数的显示位置
+            paginationHAlign:"right",//分页按钮的显示位置
+            paginationDetailHAlign:"left",//总页数 和条数的显示位置
             paginationPreText:"上一页",//设置上一页显示的文本
             paginationNextText:"下一页",//设置下一页显示的文本
             clickToSelect:true,//选中行  默认选中  单选或复选
