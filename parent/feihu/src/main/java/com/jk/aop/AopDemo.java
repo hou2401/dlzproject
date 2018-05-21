@@ -51,6 +51,7 @@ public class AopDemo {
 			}
 			System.out.println("------参数" +descArgs );
 		}
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		if(jp.getSignature().getName().equals("login")){
 			String[] aa = descArgs.split("=");
 			String name = aa[3];
@@ -58,7 +59,6 @@ public class AopDemo {
 			String cc = bb[0].substring(1,bb[0].length()-1);
 			logPojo.setUsername(cc);
 		}else{
-			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 			// 取到当前的操作用户
 			User user = (User) request.getSession().getAttribute("user");
 			logPojo.setUsername(user.getUname());
@@ -72,7 +72,19 @@ public class AopDemo {
 		logPojo.setExceptionInfo("NoException");
 		logPojo.setEndTime(sdf.format(new Date()));
 		System.out.println("---------------------------------------前置通知结束");
+		MongoLog log = (MongoLog)request.getSession().getAttribute("log");
+		if(log ==null){
+			request.getSession().setAttribute("log",logPojo);
 			mongoTemplate.insert(logPojo);
+		}else{
+			if(log.getMethodname().equals(logPojo.getMethodname())&& log.getStartTime().equals(logPojo.getStartTime())&& log.getUsername().equals(logPojo.getUsername())){
+
+			}else{
+				request.getSession().setAttribute("log",logPojo);
+				mongoTemplate.insert(logPojo);
+			}
+		}
+
 
 	}
 	
