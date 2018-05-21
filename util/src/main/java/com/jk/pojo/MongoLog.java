@@ -18,6 +18,8 @@ public class MongoLog {
     private String startTime;
     private String endTime;
 
+
+
     public String get_id() {
         return _id;
     }
@@ -88,5 +90,21 @@ public class MongoLog {
 
     public void setMethodWhere(String methodWhere) {
         this.methodWhere = methodWhere;
+    }
+
+
+    @Override
+    public String toString() {
+        return "MongoLog{" +
+                "_id='" + _id + '\'' +
+                ", methodname='" + methodname + '\'' +
+                ", parameter='" + parameter + '\'' +
+                ", username='" + username + '\'' +
+                ", exceptionInfo='" + exceptionInfo + '\'' +
+                ", methodWhere='" + methodWhere + '\'' +
+                ", state=" + state +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                '}';
     }
 }
