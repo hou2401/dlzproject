@@ -30,7 +30,6 @@
     <link href="<%=request.getContextPath() %>/js/bootstrap-dialog/dist/css/bootstrap-dialog.css" rel="stylesheet">
     <!-- bootstrap-fileinput css -->
     <link href="<%=request.getContextPath() %>/js/bootstrap-fileinput/css/fileinput.css" rel="stylesheet">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/zfh/simpleff.css">
     <!-- bootstrap 核心js文件 -->
     <script src="<%=request.getContextPath() %>/js/bootstrap/js/bootstrap.min.js"></script>
     <!-- bootStrap TreeView -->
@@ -121,8 +120,8 @@
                             return "<font color='green'>NOexception</font>";
                         }else if(row.state==2){
                             if(row.exceptionInfo!=null){
-                                if(row.exceptionInfo.length>25){
-                                    return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,25)+'...</div>';
+                                if(row.exceptionInfo.length>20){
+                                    return '<div class="icoFontlist" title="'+row.exceptionInfo+'" style="color: red">'+row.exceptionInfo.substring(0,20)+'...</div>';
                                 }else{
                                     return "<font color='red'>"+row.exceptionInfo+"</font>";
                                 }
