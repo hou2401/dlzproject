@@ -5,6 +5,7 @@ import com.jk.pojo.Type;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HanDao {
     List queryGoods(@Param("goods") Goods goods);
@@ -22,4 +23,6 @@ public interface HanDao {
     Goods queryById(Integer goodsid);
 
     void addGoods(Goods goods);
+
+    Map queryGoodByName(String goodname);
 }
