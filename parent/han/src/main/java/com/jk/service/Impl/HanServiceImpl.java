@@ -72,6 +72,8 @@ public class HanServiceImpl implements HanService{
         solrBean.setProduct_goodsprice((Double) good.get("product_goodsprice"));
         try {
             client.addBean(solrBean);
+            client.commit();
+            client.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SolrServerException e) {
