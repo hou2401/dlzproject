@@ -12,7 +12,7 @@ public interface HanDao {
 
     List queryType(@Param("type")Type type);
 
-    List updateFlag(Integer goodsid);
+    void updateFlag(Integer goodsid);
 
     void deleteGoods(Integer goodsid);
 
