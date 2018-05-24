@@ -137,4 +137,8 @@
 	<!-- 	aop简洁版  记录操作信息-->
 	<bean id="logbean" class="com.jk.aop.AopDemo"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<bean id="httpSolrClient" class="org.apache.solr.client.solrj.impl.HttpSolrClient">
+		<constructor-arg value="http://localhost:7070/solr//new_core"/>
+	</bean>
 </beans>
