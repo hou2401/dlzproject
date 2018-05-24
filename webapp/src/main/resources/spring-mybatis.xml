@@ -139,6 +139,6 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<bean id="httpSolrClient" class="org.apache.solr.client.solrj.impl.HttpSolrClient">
-		<constructor-arg value="http://localhost:7070/solr//new_core"/>
+		<constructor-arg value="http://192.168.3.162:7070/solr//new_core"/>
 	</bean>
 </beans>
