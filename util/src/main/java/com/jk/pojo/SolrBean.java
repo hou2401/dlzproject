@@ -19,19 +19,33 @@ public class SolrBean {
 	<field column="goodsprice" name="product_goodsprice"/>
 	<field column="typename" name="product_typename"/>
 	<field column="brandname" name="product_brandname"/>*/
-   private Integer product_id;
+   private Long product_id;
    private String product_name;
    private String product_goodsimage;
    private String product_goodssize;
-   private Double product_goodssales;
+   private Integer product_goodssales;
    private String product_typename;
    private String product_brandname;
+   private Double product_goodsprice;
 
-    public Integer getProduct_id() {
+   @Field
+    public void setProduct_goodssales(Integer product_goodssales) {
+        this.product_goodssales = product_goodssales;
+    }
+
+    public Double getProduct_goodsprice() {
+        return product_goodsprice;
+    }
+    @Field
+    public void setProduct_goodsprice(Double product_goodsprice) {
+        this.product_goodsprice = product_goodsprice;
+    }
+
+    public Long getProduct_id() {
         return product_id;
     }
     @Field
-    public void setProduct_id(Integer product_id) {
+    public void setProduct_id(Long product_id) {
         this.product_id = product_id;
     }
 
@@ -59,13 +73,6 @@ public class SolrBean {
         this.product_goodssize = product_goodssize;
     }
 
-    public Double getProduct_goodssales() {
-        return product_goodssales;
-    }
-    @Field
-    public void setProduct_goodssales(Double product_goodssales) {
-        this.product_goodssales = product_goodssales;
-    }
 
     public String getProduct_typename() {
         return product_typename;
