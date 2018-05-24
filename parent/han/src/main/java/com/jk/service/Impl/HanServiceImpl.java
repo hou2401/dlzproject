@@ -11,14 +11,20 @@ package com.jk.service.Impl;/**
 
 import com.jk.dao.HanDao;
 import com.jk.pojo.Goods;
+import com.jk.pojo.SolrBean;
 import com.jk.pojo.Type;
 import com.jk.service.HanService;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -33,6 +39,8 @@ public class HanServiceImpl implements HanService{
 
     @Autowired
     private HanDao dao;
+    @Resource
+    private HttpSolrClient client;
 
     public List queryGoods(Goods goods) {
         return dao.queryGoods(goods);
@@ -51,6 +59,24 @@ public class HanServiceImpl implements HanService{
         goods.setUpdatetime(sim.format(new Date()));
 
         dao.addGoods(goods);
+
+       Map good = dao.queryGoodByName(goods.getGoodsname());
+        SolrBean solrBean = new SolrBean();
+        solrBean.setProduct_id((Long)good.get("product_id"));
+        solrBean.setProduct_brandname((String)good.get("product_brandname"));
+        solrBean.setProduct_goodsimage((String)good.get("product_goodsimage"));
+        solrBean.setProduct_goodssales((Integer) good.get("product_goodssales"));
+        solrBean.setProduct_goodssize((String)good.get("product_goodssize"));
+        solrBean.setProduct_name((String) good.get("product_name"));
+        solrBean.setProduct_typename((String)good.get("product_typename"));
+        solrBean.setProduct_goodsprice((Double) good.get("product_goodsprice"));
+        try {
+            client.addBean(solrBean);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
     }
 
     public List updateFlag(Integer goodsid) {
