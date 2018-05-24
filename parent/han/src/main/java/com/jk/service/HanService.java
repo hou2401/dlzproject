@@ -1,13 +1,14 @@
 package com.jk.service;
 
 import com.jk.pojo.Goods;
+import com.jk.pojo.Type;
 
 import java.util.List;
 
 public interface HanService {
-    List queryGoods();
+    List queryGoods(Goods goods);
 
-    List queryType();
+    List queryType(Type type);
 
 
     List updateFlag(Integer goodsid);
