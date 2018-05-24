@@ -11,6 +11,7 @@ public interface HanService {
     List queryType(Type type);
 
 
+
     List updateFlag(Integer goodsid);
 
     void deleteGoods(Integer goodsid);
