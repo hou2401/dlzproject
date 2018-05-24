@@ -20,6 +20,11 @@
         <spring.version>4.0.2.RELEASE</spring.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>7.1.0</version>
+        </dependency>
         <!--引入spring-test对应的jar包 -->
         <dependency>
             <groupId>org.springframework</groupId>
