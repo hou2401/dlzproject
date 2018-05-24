@@ -50,6 +50,10 @@
 			select * from g_goods where goodsid = #{goodsid}
 
 	</select>
+	<select id="queryGoodByName" parameterType="String" resultType="java.util.Map">
+			SELECT g.goodsid,g.goodsname,g.goodsimage,g.goodssales,g.goodsprice,t.typename,b.brandname FROM g_goods g,g_brand b,g_genera e,g_type t WHERE g.brandid = b.brandid AND g.typeid = t.typeid AND e.generaid = t.generaid AND b.brandtypeid = e.generaid and g.goodsname = #{goodname}
+
+	</select>
 
     <insert id="addGoods" parameterType="com.jk.pojo.Goods">
         insert into g_goods values(goodsid,
