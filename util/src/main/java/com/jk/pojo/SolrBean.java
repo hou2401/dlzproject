@@ -19,7 +19,7 @@ public class SolrBean {
 	<field column="goodsprice" name="product_goodsprice"/>
 	<field column="typename" name="product_typename"/>
 	<field column="brandname" name="product_brandname"/>*/
-   private Long product_id;
+   private Integer product_id;
    private String product_name;
    private String product_goodsimage;
    private String product_goodssize;
@@ -41,11 +41,11 @@ public class SolrBean {
         this.product_goodsprice = product_goodsprice;
     }
 
-    public Long getProduct_id() {
+    public Integer getProduct_id() {
         return product_id;
     }
     @Field
-    public void setProduct_id(Long product_id) {
+    public void setProduct_id(Integer product_id) {
         this.product_id = product_id;
     }
 
